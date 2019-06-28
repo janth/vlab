@@ -12,8 +12,10 @@
      "output_directory": "ami-builds",
      "guest_os_type": "RedHat_64",
      "guest_additions_mode": "disable",
+     "guest_additions_mode": "attach",
      "keep_registered": "true",
      "skip_export": "true",
+     "headless": "false",
 
      "iso_urls": [
         "./ISO/CentOS-7-x86_64-Minimal-1810.iso",
