@@ -1,0 +1,15 @@
+*~
+*.sw?
+.aliases
+
+.librarian/
+.tmp/
+.vagrant/
+.vagrant.log
+
+.tags
+tags
+
+Puppetfile.lock
+
+VagrantConf/modules/*
