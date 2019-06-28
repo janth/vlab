@@ -8,9 +8,9 @@ packer inspect ${vbox}
 packer build ${vbox}
 packer build --force ${vbox}
 
-jsonpp.pl ${vbox} | packer validate -
-jsonpp.pl ${vbox} | packer inspect -
-jsonpp.pl ${vbox} | packer build -
-jsonpp.pl ${vbox} | packer build --force -
+./jsonpp.pl ${vbox} | packer validate -
+./jsonpp.pl ${vbox} | packer inspect -
+./jsonpp.pl ${vbox} | packer build -
+./jsonpp.pl ${vbox} | packer build --force -
 
 X

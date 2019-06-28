@@ -24,7 +24,7 @@ while (<>) {
    next if (m/^\s*$/); # Skip empty lines
 
    s/#.*$//; # Strip trailing comments
-   s/\/\/.*$//; # Strip trailing comments
+   #s/\/\/.*$//; # Strip trailing comments
    s/\ +$//; # Strip trailing blanks
    print
 }

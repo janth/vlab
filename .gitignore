@@ -6,6 +6,7 @@
 .tmp/
 .vagrant/
 .vagrant.log
+packerlog.txt
 
 .tags
 tags
