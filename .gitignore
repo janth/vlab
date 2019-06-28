@@ -6,7 +6,9 @@
 .tmp/
 .vagrant/
 .vagrant.log
+
 packerlog.txt
+ami-builds
 
 .tags
 tags

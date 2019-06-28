@@ -34,4 +34,13 @@ brew install packer packer-completion
 brew install ansible
 brew install terraform
 brew cask install vagrant vagrant-manager
+
+puppet: https://puppet.com/docs/puppet/5.3/install_osx.html
+
+virtualbox: https://www.virtualbox.org/wiki/Downloads
+
+- or -
+
+brew cask install virtualbox virtualbox-extension-pack
+
 X

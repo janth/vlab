@@ -1,7 +1,0 @@
-# Ignore every file here
-*
-
-# Except this file
-!.gitignore
-
-# Thus keeping empty dir in gitrepo
