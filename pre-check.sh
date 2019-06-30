@@ -17,7 +17,7 @@ esac
 absolute_script_path=${absolute_script_path_name%/*}                 # Dirname, or only /path/to, now absolute
 script_basedir=${script_path%/*}                   # basedir, if script_path is .../bin/
 
-declare -a Binaries=( packer vagrant vboxmanage puppet r10k terraform ansible )
+declare -a Binaries=( packer vagrant vboxmanage puppet r10k terraform ansible jq sponge )
 declare -i reqbin_err=0
 for bin in ${Binaries[*]} ; do
    if ! type ${bin} >/dev/null 2>&1 ; then
@@ -27,7 +27,8 @@ for bin in ${Binaries[*]} ; do
 done
 [[ ${reqbin_err} -gt 0 ]] && exit 1
 
-
+# sudo apt install python-ruamel.yaml python3-ruamel.yaml
+# python -c 'import json, sys ; from ruamel import yaml ; y=yaml.safe_load(sys.stdin.read()) ; json.dump(y, sys.stdout)'
  : << X
 
 brew install packer packer-completion
