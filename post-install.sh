@@ -10,7 +10,12 @@ absolute_script_path=${absolute_script_path_name%/*}                 # Dirname, 
 script_basedir=${script_path%/*}                   # basedir, if script_path is .../bin/
 
 
+
+
 echo "Hello, world! from ${absolute_script_path_name} run at host ${HOSTNAME} as ${USER} in ${PWD}" | tee /var/tmp/install-ansible.out
+
+/sbin/ip a
+/sbin/ip r
 
 # Exit immediately on non-zero return code
 #set -e
@@ -18,20 +23,32 @@ echo "Hello, world! from ${absolute_script_path_name} run at host ${HOSTNAME} as
 echo "yum: Installing epel-release"
 /usr/bin/yum -y install epel-release
 
-echo "yum: Installing python36-pip"
-/usr/bin/yum -y install python36-pip
-
 echo "yum: Installing wget"
 /usr/bin/yum -y install wget
 
 echo "yum: Installing git"
 /usr/bin/yum -y install git
 
-echo "pip3: Upgrading pip3"
-/usr/bin/pip3.6 install pip --upgrade
+elver=$( grep -o ' [0-9]' /etc/redhat-release )
+# remove leading whitespace characters
+elver="${elver#"${elver%%[![:space:]]*}"}"
+# remove trailing whitespace characters
+elver="${elver%"${elver##*[![:space:]]}"}"
+case ${elver} in
+   7) pipbin=/usr/bin/pip3.6
+      pippkg=python36-pip
+      echo "yum: Installing ${pippkg}"
+      /usr/bin/yum -y install python36-pip
 
-echo "pip3: installing ansible 2.7.2"
-/usr/local/bin/pip3.6 install 'ansible==2.7.2' --progress-bar off
+      echo "pip3: Upgrading pip3"
+      /usr/bin/pip3.6 install pip --upgrade
+
+      echo "pip3: installing ansible 2.7.2"
+      /usr/local/bin/pip3.6 install 'ansible==2.7.2' --progress-bar off
+      ;;
+   *) echo "ERROR: Unknown EL version '${elver}', aborting here" 
+   exit ;;
+esac
 
 # TODO:
 #   Get ansible plays from git and run...

@@ -57,7 +57,7 @@
       },
       {
          "type": "shell",
-         "script": "install-ansible.sh"
+         "script": "post-install.sh"
       },
       {
          "type": "ansible",
