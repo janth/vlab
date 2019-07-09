@@ -14,8 +14,15 @@ script_basedir=${script_path%/*}                   # basedir, if script_path is 
 
 echo "Hello, world! from ${absolute_script_path_name} run at host ${HOSTNAME} as ${USER} in ${PWD}" | tee /var/tmp/install-ansible.out
 
+(
+echo ip a:
 /sbin/ip a
+echo
+
+echo ip r:
 /sbin/ip r
+echo
+) | tee ipcfg
 
 # Exit immediately on non-zero return code
 #set -e
@@ -34,6 +41,7 @@ elver=$( grep -o ' [0-9]' /etc/redhat-release )
 elver="${elver#"${elver%%[![:space:]]*}"}"
 # remove trailing whitespace characters
 elver="${elver%"${elver##*[![:space:]]}"}"
+elver=$( sed -e 's/.*release \([0-9][0-9]*\).*/\1/' /etc/redhat-release )
 case ${elver} in
    7) pipbin=/usr/bin/pip3.6
       pippkg=python36-pip
@@ -53,3 +61,7 @@ esac
 # TODO:
 #   Get ansible plays from git and run...
 
+# Record the packer http server's ip and port
+echo "{{ .HTTPIP }}:{{ .HTTPPort }}" > /root/.packer.url
+
+env | sort > /root/.env
