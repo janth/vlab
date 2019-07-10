@@ -63,5 +63,9 @@ esac
 
 # Record the packer http server's ip and port
 echo "{{ .HTTPIP }}:{{ .HTTPPort }}" > /root/.packer.url
+echo >> /root/.packer.url
+echo "PACKER_HTTP_ADDR=${PACKER_HTTP_ADDR}" >> /root/.packer.url
+echo "PACKER_BUILDER_TYPE=${PACKER_BUILDER_TYPE}" >> /root/.packer.url
+echo "PACKER_BUILD_NAME=${PACKER_BUILD_NAME}" >> /root/.packer.url
 
 env | sort > /root/.env
