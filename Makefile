@@ -34,7 +34,7 @@ centos7iso := ISO/CentOS-7-x86_64-Minimal-1810.iso
 # packer env vars: https://www.packer.io/docs/other/environment-variables.html
 export PACKER_CACHE_DIR := packer_cache
 export PACKER_LOG := 1
-export PACKER_LOG_PATH := 'packerlog.txt'
+export PACKER_LOG_PATH := packerlog.txt
 export PACKERDIR := packer
 export PACKERTEMPLATE := packer-vbox.json
 
