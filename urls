@@ -1,0 +1,55 @@
+
+Puppet Enterprise 10-node free trial
+
+https://puppet.com/misc/pe-files/previous-releases
+
+EL8 (x86_64)
+server: https://pm.puppet.com/cgi-bin/download.cgi?dist=el&rel=8&arch=x86_64&ver=latest
+pe agent: https://pm.puppet.com/puppet-agent/2019.1.0/6.4.2/repos/el/8/puppet6/x86_64/puppet-agent-6.4.2-1.el8.x86_64.rpm
+
+EL7 (x86_64)
+server: https://pm.puppet.com/cgi-bin/download.cgi?dist=el&rel=7&arch=x86_64&ver=latest
+agent: https://pm.puppet.com/puppet-agent/2019.1.0/6.4.2/repos/el/7/puppet6/x86_64/puppet-agent-6.4.2-1.el7.x86_64.rpm
+
+
+EL6 (x86_64)
+server: https://pm.puppet.com/cgi-bin/download.cgi?dist=el&rel=6&arch=x86_64&ver=latest
+agent: ihttps://pm.puppet.com/puppet-agent/2019.1.0/6.4.2/repos/el/6/puppet6/x86_64/puppet-agent-6.4.2-1.el6.x86_64.rpm
+agent-32bit: https://pm.puppet.com/puppet-agent/2019.1.0/6.4.2/repos/el/6/puppet6/i386/puppet-agent-6.4.2-1.el6.i386.rpm
+
+EL5 
+agent x86_64: https://pm.puppet.com/puppet-agent/2019.1.0/6.4.2/repos/el/5/puppet6/x86_64/puppet-agent-6.4.2-1.el5.x86_64.rpm
+agent i386: https://pm.puppet.com/puppet-agent/2019.1.0/6.4.2/repos/el/5/puppet6/i386/puppet-agent-6.4.2-1.el5.i386.rpm
+
+Fedore 29
+agent x86_64: http://pm.puppet.com/puppet-agent/2019.1.0/6.4.2/repos/fedora/29/puppet6/x86_64/puppet-agent-6.4.2-1.fc29.x86_64.rpm
+
+Fedora 28
+agent x86_64: http://pm.puppet.com/puppet-agent/2019.1.0/6.4.2/repos/fedora/28/puppet6/x86_64/puppet-agent-6.4.2-1.fc28.x86_64.rpm
+
+Windows
+Microsoft Windows ver. Windows Server 2008(R2), Windows Server 2012(R2), Windows Server 2016, Windows Server 2019, Windows 7/8.1/10 (64-bit)
+agent: https://pm.puppet.com/puppet-agent/2019.1.0/6.4.2/repos/windows/puppet-agent-6.4.2-x64.msio
+
+Microsoft Windows ver. Windows Server 2008(R2), Windows Server 2012(R2), Windows Server 2016, Windows Server 2019, Windows 7/8.1/10 (32-bit)
+agent: https://pm.puppet.com/puppet-agent/2019.1.0/6.4.2/repos/windows/puppet-agent-6.4.2-x86.msi
+
+Solaris 11 i386 agent: https://pm.puppet.com/puppet-agent/2019.1.0/6.4.2/repos/solaris/11/puppet6/puppet-agent@6.4.2,5.11-1.i386.p5p
+Solaris 11 i386 sparc: https://pm.puppet.com/puppet-agent/2019.1.0/6.4.2/repos/solaris/11/puppet6/puppet-agent@6.4.2,5.11-1.sparc.p5p
+
+Aix 7.2, 7.1 6.1 (power) agent: https://pm.puppet.com/puppet-agent/2019.1.0/6.4.2/repos/aix/6.1/puppet6/ppc/puppet-agent-6.4.2-1.aix6.1.ppc.rpm
+
+OS X 10.14 (Mojave) agent: https://pm.puppet.com/puppet-agent/2019.1.0/6.4.2/repos/apple/10.14/puppet6/x86_64/puppet-agent-6.4.2-1.osx10.14.dmg
+
+AWS Linux ver 1 x86_64 agent: https://pm.puppet.com/puppet-agent/2019.1.0/6.4.2/repos/el/6/puppet6/x86_64/puppet-agent-6.4.2-1.el6.x86_64.rpm
+AWS Linux ver 1 i386 agent: https://pm.puppet.com/puppet-agent/2019.1.0/6.4.2/repos/el/6/puppet6/x86_64/puppet-agent-6.4.2-1.el6.x86_64.rpm
+
+SLES 15 (x86_64) agent: https://pm.puppet.com/puppet-agent/2019.1.0/6.4.2/repos/sles/15/puppet6/x86_64/puppet-agent-6.4.2-1.sles15.x86_64.rpm
+SLES 12 (x86_64) agent: https://pm.puppet.com/puppet-agent/2019.1.0/6.4.2/repos/sles/12/puppet6/x86_64/puppet-agent-6.4.2-1.sles12.x86_64.rpm
+SLES 11 (x86_64) agent: https://pm.puppet.com/puppet-agent/2019.1.0/6.4.2/repos/sles/11/puppet6/i386/puppet-agent-6.4.2-1.sles11.i386.rpm
+
+Ubuntu 18.04 (amd64)
+server: https://pm.puppet.com/cgi-bin/download.cgi?dist=ubuntu&rel=18.04&arch=amd64&ver=latest
+
+
+https://puppet.com/docs/pe/2019.1/nix_getting_started_guide.html

@@ -24,14 +24,16 @@
 
      "virtualbox_version_file": ".vbox_version",
      "vm_name": "packer-{{ user `os` }}-{{ user `ver` }}",
-     "disk_size": 8192,
+     "disk_size": 12288,
      "vboxmanage": [
         ["modifyvm", "{{.Name}}", "--memory", "512"],
         ["modifyvm", "{{.Name}}", "--vram", "9"],
         ["modifyvm", "{{.Name}}", "--cpus", "1"],
         ["modifyvm", "{{.Name}}", "--audio", "none"],
         ["modifyvm", "{{.Name}}", "--usb", "off"],
-        ["modifyvm", "{{.Name}}", "--description", "Created by packer"]
+        ["modifyvm", "{{.Name}}", "--nic2", "hostonly"],
+        ["modifyvm", "{{.Name}}", "--hostonlyadapter2", "vboxnet0"],
+        ["modifyvm", "{{.Name}}", "--description", "Created by packer at {{isotime \"2006-01-02 03:04:05\"}}"]
      ],
 
      "ssh_username": "root",

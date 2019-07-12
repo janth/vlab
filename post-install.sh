@@ -11,8 +11,9 @@ script_basedir=${script_path%/*}                   # basedir, if script_path is 
 
 
 
-
-echo "Hello, world! from ${absolute_script_path_name} run at host ${HOSTNAME} as ${USER} in ${PWD}" | tee /var/tmp/install-ansible.out
+out=/root/.inst
+[[ ! -d ${out} ]] && mkdir ${out}
+echo "Hello, world! from ${absolute_script_path_name} run at host ${HOSTNAME} as ${USER} in ${PWD}" | tee ${out}/install-ansible.out
 
 (
 echo ip a:
@@ -22,25 +23,21 @@ echo
 echo ip r:
 /sbin/ip r
 echo
-) | tee ipcfg
+) | tee ${out}/ipcfg
 
 # Exit immediately on non-zero return code
 #set -e
 
-echo "yum: Installing epel-release"
-/usr/bin/yum -y install epel-release
+for pkg in epel-release wget git htop ; do
+   echo "yum: Installing ${pkg}"
+   /usr/bin/yum -y install ${pkg}
+done
 
-echo "yum: Installing wget"
-/usr/bin/yum -y install wget
-
-echo "yum: Installing git"
-/usr/bin/yum -y install git
-
-elver=$( grep -o ' [0-9]' /etc/redhat-release )
+# elver=$( grep -o ' [0-9]' /etc/redhat-release )
 # remove leading whitespace characters
-elver="${elver#"${elver%%[![:space:]]*}"}"
+# elver="${elver#"${elver%%[![:space:]]*}"}"
 # remove trailing whitespace characters
-elver="${elver%"${elver##*[![:space:]]}"}"
+# elver="${elver%"${elver##*[![:space:]]}"}"
 elver=$( sed -e 's/.*release \([0-9][0-9]*\).*/\1/' /etc/redhat-release )
 case ${elver} in
    7) pipbin=/usr/bin/pip3.6
@@ -53,6 +50,9 @@ case ${elver} in
 
       echo "pip3: installing ansible 2.7.2"
       /usr/local/bin/pip3.6 install 'ansible==2.7.2' --progress-bar off
+
+      echo "pip3: installing pydf"
+      /usr/local/bin/pip3.6 install pydf --progress-bar off
       ;;
    *) echo "ERROR: Unknown EL version '${elver}', aborting here" 
    exit ;;
@@ -62,10 +62,9 @@ esac
 #   Get ansible plays from git and run...
 
 # Record the packer http server's ip and port
-echo "{{ .HTTPIP }}:{{ .HTTPPort }}" > /root/.packer.url
-echo >> /root/.packer.url
+echo > ${out}/.packer.url
 echo "PACKER_HTTP_ADDR=${PACKER_HTTP_ADDR}" >> /root/.packer.url
 echo "PACKER_BUILDER_TYPE=${PACKER_BUILDER_TYPE}" >> /root/.packer.url
 echo "PACKER_BUILD_NAME=${PACKER_BUILD_NAME}" >> /root/.packer.url
 
-env | sort > /root/.env
+env | sort > ${out}/.env

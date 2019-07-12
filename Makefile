@@ -62,7 +62,8 @@ centos6: $(PACKERTEMPLATE) $(SHAS) $(PACKERDIR)/vars-centos6.json 		## Generates
 	#packer build --var 'sha=$(shell cat $(centos6iso).sha )' --var 'iso=$(centos6iso) packer-vbox.json
 	#packer build --debug -on-error=ask -force --var-file=packer/vars-centos6.json packer-vbox.json
 	packer build -force -on-error=ask --var-file=$(PACKERDIR)/vars-$@.json $(PACKERTEMPLATE)
-
+	#
+# vboxmanage unregistervm  packer-centos-7 --delete
 centos7: ## Build CentOS v7
 	rm -f $(PACKER_LOG_PATH) || :
 	$(eval SHAFILE := $($@iso).sha )
