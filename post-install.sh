@@ -46,7 +46,7 @@ case ${elver} in
       /usr/bin/yum -y install python36-pip
 
       echo "pip3: Upgrading pip3"
-      /usr/bin/pip3.6 install pip --upgrade
+      /usr/bin/pip3.6 install pip --upgrade --progress-bar off
 
       echo "pip3: installing ansible 2.7.2"
       /usr/local/bin/pip3.6 install 'ansible==2.7.2' --progress-bar off

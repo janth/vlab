@@ -63,7 +63,8 @@
       },
       {
          "type": "ansible",
-         "playbook_file": "./playbook.yml"
+         "playbook_file": "./playbook.yml",
+         "extra_arguments": [ "-vvvv" ]
       }
   ]
 
