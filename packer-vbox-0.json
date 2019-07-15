@@ -1,0 +1,96 @@
+{
+  "variables": {
+     "centos7iso": "{{ env `HOMEPATH` }}/Downloads/CentOS-7-x86_64-Minimal-1810.iso",
+     "centos7iso": "{{ template_dir }}/ISO/CentOS-7-x86_64-Minimal-1810.iso",
+     "centos7sha": "38d5d51d9d100fd73df031ffd6bd8b1297ce24660dc8c13a3b8b4534a4bd291c",
+     "centos6iso": "{{ template_dir }}/ISO/CentOS-6.10-x86_64-minimal.iso",
+     "centos6sha": "7c0dee2a0494dabd84809b72ddb4b761f9ef92b78a506aef709b531c54d30770",
+     "os": "centos",
+     "ver": "7",
+     "arch": "x86_64",
+     "iso": "{{ user `os` }}{{ user `ver`}}iso",
+     "sha": "{{ user `os` }}{{ user `ver`}}sha",
+
+     "boot-centos-7": "i<wait><tab> <bs><bs><bs><bs><bs><bs>text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks-centos-7.cfg vga=773 keyboard=gb <wait2><enter>",
+     "boot-centos-6": "i<wait><tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks-centos-6.cfg vga=773 keyboard=gb <wait2><enter>",
+
+     "region": "eu-west-2",
+     "aws_access_key": "",
+     "aws_secret_key": ""
+  },
+  "builders": [{
+     "type": "virtualbox-iso",
+     "output_directory": "ami-builds",
+     "guest_os_type": "RedHat_64",
+     "guest_additions_mode": "disable",
+     "guest_additions_mode": "attach",
+     "keep_registered": "true",
+     "skip_export": "true",
+     "headless": "false",
+
+     "iso_urls": [
+        "{{ user `iso` }}",
+        "http://mirrors.mit.edu/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1810.iso"
+      ],
+     "iso_checksum": "{{ user `sha` }}",
+     "iso_checksum_type": "sha256",
+
+     "boot_wait": "5s",
+     "http_directory": "packer_httpd",
+     "boot_command": "boot-{{ user `os` }}-{{ user `ver` }}",
+     "boot_command": "{{ user `boot-centos-7` }}",
+     "boot_command": "i<wait><tab> <bs><bs><bs><bs><bs><bs>text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks-centos-7.cfg vga=773 keyboard=gb <wait2><enter>",
+     "boot_command": [
+        "i<wait><tab>",
+        " text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks-centos-6.cfg",
+        " vga=773 keyboard=uk ",
+        "<wait2><enter>"
+     ],
+     "boot_command": "i<wait><tab> <bs><bs><bs><bs><bs><bs>text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks-centos-7.cfg vga=773 keyboard=gb <wait2><enter>",
+
+     "virtualbox_version_file": ".vbox_version",
+     "vm_name": "packer-centos-7_x86_64",
+     "vm_name": "packer-{{ user `os` }}-{{ user `ver` }}",
+     "disk_size": 8192,
+     "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--memory", "512"],
+        ["modifyvm", "{{.Name}}", "--vram", "9"],
+        ["modifyvm", "{{.Name}}", "--cpus", "1"],
+        ["modifyvm", "{{.Name}}", "--audio", "none"],
+        ["modifyvm", "{{.Name}}", "--usb", "off"],
+        ["modifyvm", "{{.Name}}", "--description", "Created by packer"]
+     ],
+
+     "ssh_username": "root",
+     "ssh_password": "centos",
+     "ssh_wait_timeout": "10000s",
+     "ssh_pty" : "true",
+
+     "shutdown_command": "echo 'centos' | sudo -S shutdown -P now"
+  }],
+
+   "provisioners": [
+      {
+         "type": "shell",
+         "inline": [
+            "echo 'centos' | /usr/bin/sudo /bin/touch /.packer_created"
+         ]
+      },
+      {
+         "type": "file",
+         "source": "janth.txt",
+         "destination": "/etc/janth.txt",
+         "direction": "upload"
+      },
+      {
+         "type": "shell",
+         "script": "install-ansible.sh"
+      },
+      {
+         "type": "ansible",
+         "playbook_file": "./playbook.yml"
+      }
+  ]
+
+}
+

@@ -1,0 +1,84 @@
+{
+  "variables": {
+     "jtm" : "yes"
+  },
+  "builders": [{
+     "type": "virtualbox-iso",
+     "output_directory": "ami-builds",
+     "guest_os_type": "RedHat_64",
+     "guest_additions_mode": "disable",
+     "guest_additions_mode": "attach",
+     "keep_registered": "true",
+     "skip_export": "true",
+     "headless": "false",
+
+     "iso_urls": [
+        "{{pwd}}/{{ user `iso` }}"
+      ],
+     "iso_checksum": "{{ user `sha` }}",
+     "iso_checksum_type": "sha256",
+
+     "boot_wait": "5s",
+     "http_directory": "packer_httpd",
+     "boot_command": "i<wait><tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks-{{ user `os`}}-{{ user `ver`}}.cfg vga=773 keyboard={{ user `kb`}} <wait><wait><enter>",
+
+     "virtualbox_version_file": ".vbox_version",
+     "vm_name": "packer-{{ user `os` }}-{{ user `ver` }}",
+     "disk_size": 12288,
+     "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--memory", "512"],
+        ["modifyvm", "{{.Name}}", "--vram", "9"],
+        ["modifyvm", "{{.Name}}", "--cpus", "1"],
+        ["modifyvm", "{{.Name}}", "--audio", "none"],
+        ["modifyvm", "{{.Name}}", "--usb", "off"],
+        ["modifyvm", "{{.Name}}", "--nic2", "hostonly"],
+        ["modifyvm", "{{.Name}}", "--hostonlyadapter2", "vboxnet0"],
+        ["modifyvm", "{{.Name}}", "--description", "Created by packer at {{isotime \"2006-01-02 03:04:05\"}}"]
+     ],
+     "guest_additions_mode": "attach",
+     "vboxmanage_post": [
+          "storageattach",
+          "{{.Name}} }}",
+          "--storagectl",
+          "IDE Controller",
+          "--port",
+          "1",
+          "--device",
+          "0",
+          "--medium",
+          "none"
+     ],
+
+     "ssh_username": "root",
+     "ssh_password": "centos",
+     "ssh_wait_timeout": "10000s",
+     "ssh_pty" : "true",
+
+     "shutdown_command": "echo 'centos' | sudo -S shutdown -P now"
+  }],
+
+   "provisioners": [
+      {
+         "type": "shell",
+         "inline": [
+            "echo 'centos' | /usr/bin/sudo /bin/touch /.packer_created"
+         ]
+      },
+      {
+         "type": "file",
+         "source": "janth.txt",
+         "destination": "/etc/janth.txt",
+         "direction": "upload"
+      },
+      {
+         "type": "shell",
+         "script": "post-install.sh"
+      },
+      {
+         "type": "ansible",
+         "playbook_file": "./playbook.yml"
+      }
+  ]
+
+}
+
